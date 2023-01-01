@@ -6,7 +6,7 @@
       <h1 class="text-my-white text-6xl mt-3 ml-0 font-semibold lg:text-9xl">
         BEST
       </h1>
-      <img class="hero__image" src="../assets/assets/a64b345016e96adfb8849af5521c8e0ecfe8f027-555x555.webp" alt="no" />
+      <img class="hero__image" src="../assets/headphone.webp" alt="no" />
 
       <div>
         <button class="mt-20 px-5 py-2 bg-my-red text-my-white font-medium text-lg rounded-2xl lg:mt-8">

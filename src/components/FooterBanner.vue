@@ -19,7 +19,7 @@
       </div>
 
       <img class=" absolute top-[-7%] right-0 w-[70%] lg:w-[40%] lg:top-[-20%] lg:right-[30%]"
-        src="../assets/assets/a64b345016e96adfb8849af5521c8e0ecfe8f027-555x555.webp" alt="nothing" />
+        src="../assets/headphone.webp" alt="nothing" />
     </div>
   </div>
 </template>

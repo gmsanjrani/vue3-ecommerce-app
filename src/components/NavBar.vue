@@ -5,7 +5,7 @@
       <router-link to="/">
         <div class="w-28 md:w-40 lg:w-52 mb-3 cursor-pointer">
           <img
-            src="../assets/assets/pf-logo.png"
+            src="../assets/pf-logo.png"
             class="w-full"
             alt="No Image"
           />
