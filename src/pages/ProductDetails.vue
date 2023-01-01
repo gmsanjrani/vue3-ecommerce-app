@@ -1,0 +1,152 @@
+<template>
+  <LoadingPage v-if="loading" />
+
+  <LayoutVue v-else>
+    <div>
+      <div class="mx-8 mt-2 md:mx-8 md:grid md:grid-cols-2 md:mt-11 md:gap-8">
+        <div class="flex flex-col">
+          <div class="justify-self-center bg-my-gray-lit rounded-xl cursor-pointer">
+            <img class="w-full aspect" :src="product.thumbnail" alt="noo" />
+          </div>
+          <div class="w-full grid justify-self-center grid-cols-4 gap-3 mt-6">
+            <img :src="product.images[0]" alt="no"
+              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit" />
+            <img :src="product.images[1]" alt="no"
+              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit" />
+            <img :src="product.images[2]" alt="no"
+              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit" />
+            <img :src="product.images[3]" alt="no"
+              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit" />
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <h1 class="text-4xl font-semibold text-my-blue">
+            {{ product.title }}
+          </h1>
+          <h4 class="my-2 text-my-blue font-semibold">Details:</h4>
+          <p class="font-thin mt-3">{{ product.description }}</p>
+          <p class="my-6 text-my-red text-2xl font-semibold">
+            ${{ product.price }}
+          </p>
+          <div class="flex gap-6 items-center">
+            <h3 class="text-my-blue text-lg font-bold">Quantity:</h3>
+            <p class="grid grid-cols-3 border-[1px] gap-4 place-items-center cursor-pointer">
+              <span class="pl-3 py-[6px] text-my-red" @click="minus" ><i class="fas fa-minus"></i>
+              </span>
+              <span class="border-x w-12 text-center py-[6px]">{{itemData.quantity}}</span>
+              <span class="pr-3 py-[6px] text-my-green" @click="plus"><i class="fas fa-plus"></i>
+              </span>
+            </p>
+          </div>
+          <div class="mt-10 space-x-6">
+            <button
+            @click="$store.commit('addToCart', itemData)"
+              class="add__to__cart">
+              Add to Cart
+            </button>
+            <button
+              class="buy__now">
+              Buy Now
+            </button>
+          </div>
+         
+        </div>
+      </div>
+
+      <h1></h1>
+      <div class="maylike-products-wrapper sm:mb-[-3rem] lg:mb-0">
+        <h2>You may also like</h2>
+        <div class="marquee md:my-10">
+          <div class="maylike-products-container track">
+            <ProductLine v-for="category in categories" :key="category.id" v-bind:product="category" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </LayoutVue>
+</template>
+
+<script>
+import LayoutVue from "@/components/LayoutVue.vue";
+import ProductLine from "@/components/ProductLine";
+import axios from "axios";
+import LoadingPage from "@/pages/LoadingPage";
+
+export default {
+  components: {
+    LayoutVue,
+    ProductLine,
+    LoadingPage,
+  },
+  data() {
+    return {
+      product: {},
+      loading: true,
+      categories: [],
+      itemData: {
+        id:0,
+        title: "",
+        price: 0,
+        quantity: 0,
+        total: 0,
+        discountPercentage: 12.3,
+        discountedPrice:123
+
+      }
+    };
+  },
+  methods: {
+    plus() {
+      this.itemData.quantity++
+      this.itemData.total += this.product.price
+    },
+    minus() {
+      if (this.itemData.quantity > 0) {
+        this.itemData.quantity--
+        this.itemData.total -= this.product.price
+      }
+    },
+    fetchData() {
+
+      axios
+        .get(`https://dummyjson.com/products/${this.$route.params.id}`)
+        .then((res) => {
+          if (res) {
+            this.product = res.data;
+            this.itemData.title= this.product.title
+            this.itemData.price= this.product.price
+            this.itemData.id= this.product.id
+            window.scrollTo(0, 0);
+            axios
+              .get(
+                `https://dummyjson.com/products/category/${this.product.category}`
+              )
+              .then((res) => {
+                if (res) this.categories = res.data.products;
+              });
+              this.loading = true
+            setTimeout(() => {
+              this.loading = false;
+            }, 1150);
+          }
+        });
+    },
+  },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.fetchData();
+      },
+      { immediate: true }
+    );
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.aspect {
+  aspect-ratio: 1/0.9;
+}
+</style>

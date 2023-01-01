@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .hero__image {
+    @apply absolute top-[10%] right-0 w-[70%] md:top-[-2%] md:w-[55%] md:h-[80%] md:right-0 lg:w-auto
+     lg:h-[100%] lg:right-[20%];
+  }
+  .hero__container {
+    @apply w-full h-[470px] sm:h-[550px] bg-my-gray-lit relative rounded-2xl
+     py-16 px-8 sm:py-24 sm:px-14 lg:h-[460px];
+  }
+  .nav__logo {
+    @apply flex justify-between items-center md:gap-4 lg:px-9 py-3 px-8 md:px-4
+     md:py-2 fixed top-0 bg-my-white w-full z-10;
+  }
+  .nav__card__count {
+    @apply animate-bounce cursor-pointer text-my-white absolute top-[-0.3rem] right-[-0.5rem]
+    text-sm bg-my-red rounded-full text-center w-5 h-5 self-center;
+  }
+  .logout__btn {
+    @apply absolute z-30 bg-my-white top-full right-full border-my-red border rounded-md
+    py-1 px-1 sm:px-7 sm:py-2 text-my-red cursor-pointer transition hover:bg-my-red
+    hover:text-my-white duration-100;
+  }
+  .input__container{
+    @apply hidden md:flex place-items-center  flex-1 w-full max-w-xs lg:max-w-md h-8 md:h-10 pr-3
+bg-my-gray-lit rounded-full
+  }
+  .nav__input {
+    @apply w-full h-full bg-my-gray-lit rounded-l-full outline-none border-none indent-1
+    md:text-[0.9rem] md:indent-4 md:text-sm;
+  }
+  .nav__products{
+    @apply text-xs md:text-sm hover:underline underline-offset-4 decoration-2 active:text-my-red
+    hover:text-my-red cursor-pointer
+  }
+  .cart__container{
+    @apply fixed right-0 top-0 left-[25%] bg-my-red bg-opacity-95 h-full
+     z-50 px-4 pt-10  lg:left-[50%] overflow-y-scroll
+  }
+  .product__line{
+    @apply mr-6 cursor-pointer rounded-2xl px-4 py-6 transition hover:scale-105 duration-500
+     outline outline-2 outline-my-gray-lit
+  }
+  .category__item{
+    @apply border border-solid text-xs rounded-md font-semibold text-my-blue border-my-gray
+     cursor-pointer p-3  hover:bg-my-red transition duration-200 hover:text-my-white sm:text-sm md:text-base md:py-5
+  }
+  .add__to__cart{
+    @apply border-my-red border py-1 px-2 sm:px-7 sm:py-2 text-my-red 
+    cursor-pointer transition hover:scale-110 duration-300
+  }
+  .buy__now{
+    @apply border-my-red border-[2px] sm:px-7 sm:py-2 bg-my-red py-1 px-4
+     text-my-white font-medium cursor-pointer transition hover:scale-110 duration-300
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  box-sizing: border-box;
+  /* border: 1px solid red; */
+}
+body {
+  font-family: Poppins, sans-serif;
+}
+
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 95%;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.title {
+  /* width: 20px; */
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marquee {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  overflow-x: hidden;
+}
+.marquee__img img {
+  height: 250px;
+  width: 250px;
+}
+
+.track {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 8s linear infinite;
+  width: 180%;
+}
+.track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.maylike-products-wrapper {
+  margin-top: 90px;
+}
+.maylike-products-wrapper h2 {
+  text-align: center;
+  color: #324d67;
+  font-weight: 700;
+  font-size: 28px;
+}
+.maylike-products-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+.small-image {
+  border-radius: 8px;
+  background-color: #ebebeb;
+  /* width: 70px; */
+  /* height: 70px; */
+  /* cursor: pointer; */
+}
+
+.selected-image {
+  background-color: #f02d34;
+}
+
+/* #__next{
+  background-color: red;
+} */
+@media screen and (max-width: 550px) {
+  .total h3 {
+    font-size: 20px;
+  }
+  .track {
+    animation: marquee 10s linear infinite;
+    width: 550%;
+  }
+  .marquee__img img {
+    height: 200px;
+    width: 200px;
+  }
+  #App {
+    /* margin-left: 1.4rem; */
+    align-self: center;
+    justify-self: center;
+    /* border: 1px solid #f02d34; */
+  }
+}
+@media screen and (max-width: 768px) {
+  .marquee__img img {
+    height: 200px;
+    width: 200px;
+  }
+  #App {
+    /* margin-left: 1.4rem; */
+    align-self: center;
+    justify-self: center;
+    /* border: 1px solid #f02d34; */
+  }
+}
