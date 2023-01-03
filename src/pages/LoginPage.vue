@@ -88,6 +88,12 @@ export default {
       }
     },
   },
+
+  updated() {
+    if (JSON.parse(localStorage.getItem("userData"))) {
+      this.$router.push("/home");
+    }
+  }
 };
 </script>
 
