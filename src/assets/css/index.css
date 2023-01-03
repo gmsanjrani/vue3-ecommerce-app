@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --maincolor: #2E294E;
+  --secondarycolor:#fff;
+}
+
+/*=============================================
+= some custom classes for long tailwind classes   =
+=============================================*/
+
 @layer components {
   .hero__image {
     @apply absolute top-[10%] right-0 w-[70%] md:top-[-2%] md:w-[55%] md:h-[80%] md:right-0 lg:w-auto
@@ -48,7 +57,7 @@ bg-my-gray-lit rounded-full
   }
   .category__item{
     @apply border border-solid text-xs rounded-md font-semibold text-my-blue border-my-gray
-     cursor-pointer p-3  hover:bg-my-red transition duration-200 hover:text-my-white sm:text-sm md:text-base md:py-5
+     cursor-pointer p-3  hover:bg-my-red transition duration-200 hover:text-my-white sm:text-sm md:text-base md:p-5
   }
   .add__to__cart{
     @apply border-my-red border py-1 px-2 sm:px-7 sm:py-2 text-my-red 
@@ -58,17 +67,45 @@ bg-my-gray-lit rounded-full
     @apply border-my-red border-[2px] sm:px-7 sm:py-2 bg-my-red py-1 px-4
      text-my-white font-medium cursor-pointer transition hover:scale-110 duration-300
   }
+  .pagi__btn{
+    @apply h-14 w-14 border-2 text-my-red border-my-red text-lg cursor-pointer font-medium
+     hover:bg-my-red hover:text-my-white transition rounded-xl
+
+  }
+  .update__container{
+    @apply grid grid-cols-2 
+  }
 }
+
+.update__container>div{
+  display: flex;
+}
+.update__container>input, .update__container>input::placeholder{
+  font-size: 0.8rem;
+  width: 85%;
+}
+.update__container>input[type="file"]::file-selector-button{
+  height: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+/*=============================================
+=            some basic styling            =
+=============================================*/
 
 html {
   scroll-behavior: smooth;
 }
+
 * {
   padding: 0;
   margin: 0;
   outline: 0;
   box-sizing: border-box;
-  /* border: 1px solid red; */
 }
 body {
   font-family: Poppins, sans-serif;
@@ -78,6 +115,7 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   width: 95%;
+  /* text-align: center; */
 }
 ::-webkit-scrollbar {
   display: none;
@@ -93,11 +131,16 @@ a {
   text-decoration: none;
 }
 .title {
-  /* width: 20px; */
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+
+
+/*=============================================
+=            marquee styling            =
+=============================================*/
 
 .marquee {
   position: relative;
@@ -120,6 +163,11 @@ a {
 .track:hover {
   animation-play-state: paused;
 }
+
+
+/*----------  marquee animation  ----------*/
+
+
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -146,18 +194,51 @@ a {
 .small-image {
   border-radius: 8px;
   background-color: #ebebeb;
-  /* width: 70px; */
-  /* height: 70px; */
-  /* cursor: pointer; */
 }
 
 .selected-image {
   background-color: #f02d34;
 }
 
-/* #__next{
-  background-color: red;
+
+/*=============================================
+=            pagination styling            =
+=============================================*/
+
+
+
+.pagination {
+  display: flex;
+  gap: 1rem;
+}
+
+/* .pagi__btn::before{
+  position: absolute;
+  top: 100%;
+  content: "";
+  background-color: #f02d34;
+  height: 100%;
+  width: 100%;
+  transform: scale(0);
+  transition: all 500ms ease-in-out;
+  z-index: 1001;
+}
+.btnhover{
+  color: #ebebeb;
+}
+.btnhover::before{
+  transform: scale(1.1);
 } */
+
+
+
+
+
+
+/*=============================================
+=            query for mobiles            =
+=============================================*/
+
 @media screen and (max-width: 550px) {
   .total h3 {
     font-size: 20px;
@@ -177,6 +258,12 @@ a {
     /* border: 1px solid #f02d34; */
   }
 }
+
+
+/*=============================================
+=            query for tablets            =
+=============================================*/
+
 @media screen and (max-width: 768px) {
   .marquee__img img {
     height: 200px;

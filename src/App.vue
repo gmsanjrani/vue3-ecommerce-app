@@ -1,16 +1,20 @@
 <template>
   <div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-
 export default {
-  beforeMount() {
-    this.$store.dispatch('getProducts')
-    this.$store.dispatch('getCart')
-  }
-
+  // here we get products & cart data of a user
+  mounted() {
+    this.$store.dispatch("getProducts");
+    if (!JSON.parse(localStorage.getItem("userData"))) {
+      this.$router.push("/");
+    } else {
+      const userId = JSON.parse(localStorage.getItem("userData")).id;
+      this.$store.dispatch("getCart", userId);
+    }
+  },
 };
 </script>

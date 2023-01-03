@@ -2,35 +2,23 @@
   <ShoppingCart v-if="$store.state.cart" />
   <header class=" ">
     <nav class="nav__logo">
-      <router-link to="/">
+      <!-- route to Home Page -->
+      <router-link to="/home">
         <div class="w-28 md:w-40 lg:w-52 mb-3 cursor-pointer">
-          <img
-            src="../assets/pf-logo.png"
-            class="w-full"
-            alt="No Image"
-          />
+          <img src="../assets/pf-logo.png" class="w-full" alt="No Image" />
         </div>
       </router-link>
       <div class="input__container">
         <label for="search"></label>
-        <input
-          class="nav__input"
-          type="search"
-          name="search"
-          id="search"
-          placeholder="Search Products"
-          v-model.lazy="search"
-        />
-        <i
-          @click="$store.dispatch('searchProducts', search)"
-          class="fas fa-search cursor-pointer rounded-2xl p-1"
-        ></i>
+        <input class="nav__input" type="search" name="search" id="search" placeholder="Search Products"
+          v-model.lazy="search" />
+          <!-- calling vuex function for searching products -->
+        <i @click="$store.dispatch('searchProducts', search)" class="fas fa-search cursor-pointer rounded-2xl p-1"></i>
       </div>
       <div class="flex gap-4">
-        <router-link
-          to="/"
-          class="text-xs md:text-sm underline underline-offset-4 decoration-2 text-my-red cursor-pointer"
-        >
+        <!-- routing for home/products page -->
+        <router-link to="/home"
+          class="text-xs md:text-sm underline underline-offset-4 decoration-2 text-my-red cursor-pointer">
           HOME
         </router-link>
 
@@ -39,26 +27,19 @@
 
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-3">
-          <span class="hidden sm:block text-xs md:text-sm">{{
-            userDetails.username
-          }}</span>
+          <span class="hidden sm:block text-xs md:text-sm">{{userDetails.username}}</span>
           <div class="relative">
-            <img
-              :src="userDetails.image"
-              alt=""
-              class="rounded-full h-6 w-6 md:w-8 md:h-8 shadow-inner cursor-pointer"
-              @click="show"
-            />
+            <img :src="userDetails.image" alt="" class="rounded-full h-6 w-6 md:w-8 md:h-8 shadow-inner cursor-pointer"
+              @click="show" />
+              <!-- logout function local-->
             <span v-if="logoutBtn" @click="logout" class="logout__btn">
               Logout
             </span>
           </div>
         </div>
         <button type="button">
-          <i
-            class="fas fa-cart-plus text-lg lg:text-2xl cursor-pointer relative"
-            @click="$store.commit('showCart')"
-          >
+          <!-- calling vuex toggle cart function -->
+          <i class="fas fa-cart-plus text-lg lg:text-2xl cursor-pointer relative" @click="$store.commit('showCart')">
             <span class="nav__card__count">
               {{ $store.state.cartData.totalQuantity }}
             </span>
@@ -83,17 +64,19 @@ export default {
     };
   },
   methods: {
+    // toggle logout button 
     show() {
       this.logoutBtn = !this.logoutBtn;
     },
-
+    // logout function
     logout() {
       localStorage.removeItem("userData");
-      this.$router.push("/login");
+      this.$router.push("/");
     },
   },
 
   beforeMount() {
+    // get&set user data from local storage
     const user = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = user;
   },

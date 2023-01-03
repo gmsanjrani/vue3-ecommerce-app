@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  // products of same category
   props: {
     product: {
       type: Object,
@@ -26,6 +27,7 @@ export default {
     };
   },
   methods: {
+    // dynamic routing for products with id
     replaceRoute() {
       this.$router.replace({
         name: "product",

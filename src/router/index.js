@@ -7,11 +7,11 @@ import ProductDetails from "@/pages/ProductDetails";
 const routes = [
   {
     path: "/",
-    component: HomePage,
+    component: LoginPage,
   },
   {
-    path: "/login",
-    component: LoginPage,
+    path: "/home",
+    component: HomePage,
   },
   {
     path: "/products",

@@ -25,6 +25,7 @@
             v-model="formData.password" />
         </div>
       </form>
+      <!-- login function -->
       <button @click="submitLogin" id="login__btn">Login</button>
     </div>
   </div>
@@ -62,7 +63,7 @@ export default {
         this.$refs.password.classList.remove("focus");
     },
 
-    // Login Functionality
+    // Login Functionality store user data into local storage
 
     async submitLogin() {
       try {
@@ -76,12 +77,12 @@ export default {
           },
         });
         const user = await response.data;
-        // this.store.userData = user;
+
         if (user.token) {
-          localStorage.setItem("userData", JSON.stringify(user));
-          this.$router.push("/");
+          this.$store.dispatch("getCart", user.id);
+          localStorage.setItem("userData", JSON.stringify(user));            
+          this.$router.push("/home");
         }
-        // console.log(this.store.userData);
       } catch (error) {
         console.log(error);
       }

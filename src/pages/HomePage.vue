@@ -9,7 +9,14 @@
       <p class="text-my-gray">Best speakers you ever use</p>
     </div>
 
-    <ProductList />
+    <!-- products list -->
+    <div class="flex flex-wrap justify-center gap-10 mt-8 mb-20">
+      <ProductItem
+        v-for="product in $store.state.topRatedProducts"
+        :key="product.id"
+        :product="product"
+      />
+    </div>
 
     <div>
       <FooterBanner />
@@ -21,8 +28,8 @@
 import LayoutVue from "@/components/LayoutVue";
 import HeroBanner from "@/components/HeroBanner.vue";
 import FooterBanner from "@/components/FooterBanner.vue";
-import ProductList from "@/components/ProductList.vue";
 import LoadingPage from "./LoadingPage.vue";
+import ProductItem from "@/components/ProductItem";
 
 export default {
   data() {
@@ -30,19 +37,21 @@ export default {
       loading: true,
     };
   },
-  mounted() {
-    if (!JSON.parse(localStorage.getItem("userData"))) this.$router.push("/login");
-    else setTimeout(() => {
-      this.loading = false
-    }, 1150);
-
+  beforeMount() {
+    // check if user is log in or not
+    if (!JSON.parse(localStorage.getItem("userData"))) {
+      this.$router.push("/");
+    }
+    setTimeout(() => {
+        this.loading = false;
+      }, 1500);
   },
   components: {
     LayoutVue,
     HeroBanner,
     FooterBanner,
-    ProductList,
     LoadingPage,
+    ProductItem,
   },
 };
 </script>

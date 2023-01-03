@@ -4,35 +4,47 @@ import { useToast } from "vue-toastification";
 const toast = useToast();
 const store = createStore({
   state: {
-    products: [],
+    products: [], 
     cart: false,
     cartData: null,
+    topRatedProducts:[]
   },
   mutations: {
-    getProducts(state, newPosts) {
+    // function for setting products
+    setProducts(state, newPosts) {
       state.products = newPosts;
+      const x = state.products.filter((p) => p.rating > 4.5);
+      state.topRatedProducts = x
     },
+    // toggle button for cart open/close
     showCart(state) {
       state.cart = !state.cart;
     },
-    getCart(state, newCart) {
+    // function fot setting cart items
+    setCart(state, newCart) {
       state.cartData = newCart;
       state.cartProducts = newCart.products;
     },
+    // function remove cart item
     removeCartItem(state, index) {
-      toast.success(`${state.cartData.products[index].title} is removed from Cart !`,{timeout:1500})
+      toast.success(
+        `${state.cartData.products[index].title} is removed from Cart !`,
+        { timeout: 1500 }
+      );
       state.cartData.total -= state.cartData.products[index].total;
       state.cartData.totalQuantity -= state.cartData.products[index].quantity;
       state.cartData.totalProducts--;
       state.cartData.products.splice(index, 1);
     },
+    // function add an item to cart
     addToCart(state, data) {
       let x = state.cartData.products.some((p) => p.id == data.id);
       if (x) {
-        toast.warning(`${data.title} is already in the Cart !`);
+        toast.warning(`${data.title} is already in the Cart !`); //check item is present
       } else if (data.quantity == 0) {
-        toast.error("Please Add an Item");
+        toast.error("Please Add an Item"); // check quantity we want to add
       } else {
+        // add to cart
         state.cartData.products.push(data);
         toast.success(
           `${data.quantity} ${data.title} ${
@@ -44,6 +56,7 @@ const store = createStore({
         state.cartData.totalProducts++;
       }
     },
+    // function increasing cart item quantity
     plusProduct(state, id) {
       state.cartData.products.map((p) => {
         if (p.id == id) {
@@ -54,6 +67,7 @@ const store = createStore({
         }
       });
     },
+    // function decreasing cart item quantity
     minusProduct(state, id) {
       state.cartData.products.map((p) => {
         if (p.id == id && p.quantity > 0) {
@@ -64,42 +78,52 @@ const store = createStore({
         }
       });
     },
+    deleteProduct(state, id) {
+      const newArray = state.products.filter((p) => p.id != id);
+      state.products = newArray;
+    },
   },
   actions: {
+    // get products for API
     getProducts({ commit }) {
       axios.get("https://dummyjson.com/products/").then((response) => {
-        commit("getProducts", response.data.products);
+        commit("setProducts", response.data.products);
       });
     },
+    // search product form API and set products
     searchProducts({ commit }, search) {
       if (search) {
         axios
           .get(`https://dummyjson.com/products/search?q=${search}`)
           .then((response) => {
-            commit("getProducts", response.data.products);
+            commit("setProducts", response.data.products);
           });
         window.scrollTo(0, 500);
       } else {
         axios.get("https://dummyjson.com/products/").then((response) => {
-          commit("getProducts", response.data.products);
+          commit("setProducts", response.data.products);
         });
       }
     },
+    // filter products by category
     productsCategory({ commit }, val) {
       axios
         .get(`https://dummyjson.com/products/category/${val.trim()}`)
         .then((response) => {
-          commit("getProducts", response.data.products);
+          commit("setProducts", response.data.products);
         });
     },
-    getCart({ commit }) {
-      let userId = JSON.parse(localStorage.getItem("userData")).id;
-      axios
+    // getting cart of a logged user form API
+    getCart({ commit },userId) {
+        axios
         .get(`https://dummyjson.com/carts/user/${userId}`)
         .then((response) => {
-          commit("getCart", response.data.carts[0]);
+          if (response) commit("setCart", response.data.carts[0]);
         });
     },
+
+    // Function create a new Cart
+  
   },
 });
 
