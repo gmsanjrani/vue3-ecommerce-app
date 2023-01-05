@@ -6,15 +6,12 @@
 
 <script>
 export default {
-  // here we get products & cart data of a user
   mounted() {
     this.$store.dispatch("getProducts");
-    if (!JSON.parse(localStorage.getItem("userData"))) {
-      this.$router.push("/");
-    } else {
-      const userId = JSON.parse(localStorage.getItem("userData")).id;
-      this.$store.dispatch("getCart", userId);
-    }
-  },
+    this.$store.dispatch("getCategories");
+    this.$store.dispatch("getTopRatedProducts")
+    if (!JSON.parse(localStorage.getItem("userData"))) this.$router.push("/login");
+    else this.$store.dispatch("getCart");
+  }
 };
 </script>

@@ -6,11 +6,11 @@ import ProductDetails from "@/pages/ProductDetails";
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     component: LoginPage,
   },
   {
-    path: "/home",
+    path: "/",
     component: HomePage,
   },
   {

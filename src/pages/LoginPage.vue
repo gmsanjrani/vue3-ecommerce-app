@@ -77,11 +77,9 @@ export default {
           },
         });
         const user = await response.data;
-
         if (user.token) {
-          this.$store.dispatch("getCart", user.id);
-          localStorage.setItem("userData", JSON.stringify(user));            
-          this.$router.push("/home");
+          localStorage.setItem("userData", JSON.stringify(user));           
+          this.$router.push("/");
         }
       } catch (error) {
         console.log(error);
@@ -89,11 +87,6 @@ export default {
     },
   },
 
-  updated() {
-    if (JSON.parse(localStorage.getItem("userData"))) {
-      this.$router.push("/home");
-    }
-  }
 };
 </script>
 

@@ -57,7 +57,7 @@ bg-my-gray-lit rounded-full
   }
   .category__item{
     @apply border border-solid text-xs rounded-md font-semibold text-my-blue border-my-gray
-     cursor-pointer p-3  hover:bg-my-red transition duration-200 hover:text-my-white sm:text-sm md:text-base md:p-5
+     cursor-pointer p-3  hover:bg-my-red transition duration-200 hover:text-my-white sm:text-sm 
   }
   .add__to__cart{
     @apply border-my-red border py-1 px-2 sm:px-7 sm:py-2 text-my-red 
@@ -68,7 +68,7 @@ bg-my-gray-lit rounded-full
      text-my-white font-medium cursor-pointer transition hover:scale-110 duration-300
   }
   .pagi__btn{
-    @apply h-14 w-14 border-2 text-my-red border-my-red text-lg cursor-pointer font-medium
+    @apply h-8 w-8 sm:w-10 sm:h-10 md:h-12 md:w-12 md:text-lg border-2 text-my-red border-my-red text-sm cursor-pointer font-medium
      hover:bg-my-red hover:text-my-white transition rounded-xl
 
   }
@@ -207,28 +207,13 @@ a {
 
 
 
-.pagination {
-  display: flex;
-  gap: 1rem;
-}
 
-/* .pagi__btn::before{
-  position: absolute;
-  top: 100%;
-  content: "";
-  background-color: #f02d34;
-  height: 100%;
-  width: 100%;
-  transform: scale(0);
-  transition: all 500ms ease-in-out;
-  z-index: 1001;
+
+.category__container{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+
 }
-.btnhover{
-  color: #ebebeb;
-}
-.btnhover::before{
-  transform: scale(1.1);
-} */
 
 
 

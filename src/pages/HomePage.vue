@@ -30,21 +30,17 @@ import HeroBanner from "@/components/HeroBanner.vue";
 import FooterBanner from "@/components/FooterBanner.vue";
 import LoadingPage from "./LoadingPage.vue";
 import ProductItem from "@/components/ProductItem";
-
 export default {
   data() {
     return {
       loading: true,
     };
   },
-  beforeMount() {
+  mounted() {
     // check if user is log in or not
-    if (!JSON.parse(localStorage.getItem("userData"))) {
-      this.$router.push("/");
-    }
-    setTimeout(() => {
-        this.loading = false;
-      }, 1500);
+    if (!JSON.parse(localStorage.getItem("userData"))) this.$router.push("/login");
+    else this.$store.dispatch("getCart");
+    setTimeout(() => {this.loading = false;}, 1500);
   },
   components: {
     LayoutVue,

@@ -4,17 +4,33 @@ import { useToast } from "vue-toastification";
 const toast = useToast();
 const store = createStore({
   state: {
-    products: [], 
+    products: [],
     cart: false,
     cartData: null,
-    topRatedProducts:[]
+    userData:null,
+    categories: [],
+    topRatedProducts: [],
+    pages: 0,
+    tempPages:0
   },
   mutations: {
-    // function for setting products
+    // mutate products
     setProducts(state, newPosts) {
       state.products = newPosts;
-      const x = state.products.filter((p) => p.rating > 4.5);
-      state.topRatedProducts = x
+    },
+    // mutate/set  top rated products for home page
+    setTopRatedProducts(state, newProducts) {
+      state.topRatedProducts = newProducts;
+    },
+
+    // set pages 
+    setPages(state, newPages) {
+      state.pages = newPages
+    },
+
+    // set Temp Pages
+    setTempPages(state, value) {
+      state.tempPages = value
     },
     // toggle button for cart open/close
     showCart(state) {
@@ -23,8 +39,17 @@ const store = createStore({
     // function fot setting cart items
     setCart(state, newCart) {
       state.cartData = newCart;
-      state.cartProducts = newCart.products;
     },
+    // set logged in user Data
+
+    setUserData(state, newUser) {
+      state.userData = newUser
+    },
+    // function set Categories
+    setCategories(state, newCategories) {
+      state.categories = newCategories;
+    },
+
     // function remove cart item
     removeCartItem(state, index) {
       toast.success(
@@ -36,6 +61,7 @@ const store = createStore({
       state.cartData.totalProducts--;
       state.cartData.products.splice(index, 1);
     },
+
     // function add an item to cart
     addToCart(state, data) {
       let x = state.cartData.products.some((p) => p.id == data.id);
@@ -56,6 +82,7 @@ const store = createStore({
         state.cartData.totalProducts++;
       }
     },
+
     // function increasing cart item quantity
     plusProduct(state, id) {
       state.cartData.products.map((p) => {
@@ -67,6 +94,7 @@ const store = createStore({
         }
       });
     },
+
     // function decreasing cart item quantity
     minusProduct(state, id) {
       state.cartData.products.map((p) => {
@@ -78,52 +106,78 @@ const store = createStore({
         }
       });
     },
+
+    // delete a product
     deleteProduct(state, id) {
       const newArray = state.products.filter((p) => p.id != id);
       state.products = newArray;
     },
   },
   actions: {
-    // get products for API
-    getProducts({ commit }) {
-      axios.get("https://dummyjson.com/products/").then((response) => {
+    // get&commit products for first page
+    getProducts({ commit }, page=1) {
+      axios.get(`https://dummyjson.com/products?limit=10&skip=${(page-1)*10}`).then((response) => {
         commit("setProducts", response.data.products);
       });
     },
+
+    // get&commit top rated products and set pages
+    getTopRatedProducts({ commit }) {
+      axios.get("https://dummyjson.com/products?limit=100").then((response) => {
+        if (response.status == 200) {
+          commit("setPages", Math.floor(response.data.products.length / 10))
+          commit("setTempPages", Math.floor(response.data.products.length / 10))
+         const topRatedProducts = response.data.products.filter((p) => p.rating > 4.8);
+         commit("setTopRatedProducts", topRatedProducts);
+        }
+      });
+    },
+
+    // get&commit Categories
+    getCategories({ commit }) {
+      axios
+        .get("https://dummyjson.com/products/categories")
+        .then((response) => {
+          commit("setCategories", response.data);
+        });
+    },
+
     // search product form API and set products
     searchProducts({ commit }, search) {
-      if (search) {
-        axios
-          .get(`https://dummyjson.com/products/search?q=${search}`)
-          .then((response) => {
-            commit("setProducts", response.data.products);
-          });
-        window.scrollTo(0, 500);
-      } else {
-        axios.get("https://dummyjson.com/products/").then((response) => {
+      axios
+        .get(`https://dummyjson.com/products/search?q=${search}`)
+        .then((response) => {
           commit("setProducts", response.data.products);
+          commit("setPages", Math.ceil(response.data.products.length / 10))
+          if (response.data.products == 0)
+            toast.warning(`No Product Found with key ${search}`, {
+              timeout: 1500,
+            });
         });
-      }
     },
+
     // filter products by category
     productsCategory({ commit }, val) {
       axios
         .get(`https://dummyjson.com/products/category/${val.trim()}`)
         .then((response) => {
+          commit("setPages", Math.ceil(response.data.products.length / 10))
           commit("setProducts", response.data.products);
         });
     },
-    // getting cart of a logged user form API
-    getCart({ commit },userId) {
-        axios
-        .get(`https://dummyjson.com/carts/user/${userId}`)
+
+    // get cart data of logged in user
+    getCart({ commit }, ) {
+      let user = JSON.parse(localStorage.getItem("userData"));
+      commit("setUserData", user)
+      axios
+        .get(`https://dummyjson.com/carts/user/${user.id}`)
         .then((response) => {
-          if (response) commit("setCart", response.data.carts[0]);
+          if (response) {
+            commit("setCart", response.data.carts[0]);
+          }
         });
     },
-
-    // Function create a new Cart
-  
   },
 });
 
