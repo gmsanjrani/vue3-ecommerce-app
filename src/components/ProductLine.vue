@@ -4,7 +4,7 @@
     @click="replaceRoute">
     <a>
       <div class="space-y-2 marquee__img">
-        <img class="bg-my-gray-lit rounded-2xl shadow-md outline outline-2 outline-my-gray-lit" :src="product.thumbnail"
+        <img :src="myProduct.thumbnail" class="bg-my-gray-lit rounded-2xl shadow-md outline outline-2 outline-my-gray-lit" 
           alt="nothing" />
         <p class="text-my-blue font-semibold title">{{ myProduct.title }}</p>
         <p class="font-extrabold">${{ myProduct.price }}</p>

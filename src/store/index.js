@@ -72,11 +72,7 @@ const store = createStore({
       } else {
         // add to cart
         state.cartData.products.push(data);
-        toast.success(
-          `${data.quantity} ${data.title} ${
-            data.quantity < 2 ? "is" : "'s are"
-          } added to the Cart !`
-        );
+        toast.success(`${data.quantity} ${data.title} ${data.quantity < 2 ? "is" : "'s are"} added to the Cart !`);
         state.cartData.total += data.total;
         state.cartData.totalQuantity += data.quantity;
         state.cartData.totalProducts++;
@@ -160,7 +156,7 @@ const store = createStore({
         .then((response) => {
           if (response.data.products.length == 0) toast.warning(`No Product Found with key ${search}`, { timeout: 1500, });
           else {
-            commit("setPages", Math.ceil(response.data.products.length / 10))
+            commit("setPages", Math.floor(response.data.products.length / 10))
             commit("setProducts", response.data.products);
           }
         });
@@ -172,7 +168,7 @@ const store = createStore({
         axios
         .get(`https://dummyjson.com/products/category/${val.trim()}`)
         .then((response) => {
-          commit("setPages", Math.ceil(response.data.products.length / 10))
+          commit("setPages", Math.floor(response.data.products.length / 10))
           commit("setProducts", response.data.products);
         });
       } catch (error) {
