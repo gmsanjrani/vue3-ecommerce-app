@@ -12,7 +12,7 @@
       </p>
     </div>
     <div id="login__content">
-      <h1 class=" text-3xl font-semibold">Welcome!</h1>
+      <h1 class="text-3xl font-semibold">Welcome!</h1>
       <form action="" method="get">
         <div class="login__input" ref="username">
           <label for="name">username</label>
@@ -77,16 +77,14 @@ export default {
           },
         });
         const user = await response.data;
-        if (user.token) {
-          localStorage.setItem("userData", JSON.stringify(user));           
-          this.$router.push("/");
-        }
-      } catch (error) {
-        console.log(error);
+        localStorage.setItem("userData", JSON.stringify(user));
+        this.$router.push("/");
+      } catch (e) {
+        this.$swal("Error!", `Invalid Credentials.`, "success");
+        console.log(e);
       }
     },
   },
-
 };
 </script>
 

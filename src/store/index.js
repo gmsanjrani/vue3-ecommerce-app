@@ -115,10 +115,15 @@ const store = createStore({
   },
   actions: {
     // get&commit products for first page
-    getProducts({ commit }, page=1) {
-      axios.get(`https://dummyjson.com/products?limit=10&skip=${(page-1)*10}`).then((response) => {
-        commit("setProducts", response.data.products);
-      });
+    getProducts({ commit }, page = 1) {
+      
+      try {
+        axios.get(`https://dummyjson.com/products?limit=10&skip=${(page-1)*10}`).then((response) => {
+          commit("setProducts", response.data.products);
+        });
+      } catch (error) {
+        toast.error(error)
+      }
     },
 
     // get&commit top rated products and set pages
@@ -130,16 +135,22 @@ const store = createStore({
          const topRatedProducts = response.data.products.filter((p) => p.rating > 4.8);
          commit("setTopRatedProducts", topRatedProducts);
         }
+        else toast.error("please reload")
       });
     },
 
     // get&commit Categories
     getCategories({ commit }) {
-      axios
+      try {
+        axios
         .get("https://dummyjson.com/products/categories")
         .then((response) => {
           commit("setCategories", response.data);
         });
+      } catch (error) {
+        toast.error(error)
+      }
+     
     },
 
     // search product form API and set products
@@ -147,36 +158,46 @@ const store = createStore({
       axios
         .get(`https://dummyjson.com/products/search?q=${search}`)
         .then((response) => {
-          commit("setProducts", response.data.products);
-          commit("setPages", Math.ceil(response.data.products.length / 10))
-          if (response.data.products == 0)
-            toast.warning(`No Product Found with key ${search}`, {
-              timeout: 1500,
-            });
+          if (response.data.products.length == 0) toast.warning(`No Product Found with key ${search}`, { timeout: 1500, });
+          else {
+            commit("setPages", Math.ceil(response.data.products.length / 10))
+            commit("setProducts", response.data.products);
+          }
         });
     },
 
     // filter products by category
     productsCategory({ commit }, val) {
-      axios
+      try {
+        axios
         .get(`https://dummyjson.com/products/category/${val.trim()}`)
         .then((response) => {
           commit("setPages", Math.ceil(response.data.products.length / 10))
           commit("setProducts", response.data.products);
         });
+      } catch (error) {
+        toast.error(error)
+      }
+
     },
 
     // get cart data of logged in user
     getCart({ commit }, ) {
       let user = JSON.parse(localStorage.getItem("userData"));
       commit("setUserData", user)
-      axios
+
+      try {
+        axios
         .get(`https://dummyjson.com/carts/user/${user.id}`)
         .then((response) => {
           if (response) {
             commit("setCart", response.data.carts[0]);
           }
         });
+      } catch (error) {
+        toast.error(error)
+      }
+      
     },
   },
 });

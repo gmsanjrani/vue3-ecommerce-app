@@ -218,7 +218,7 @@ export default {
     },
   },
   created() {
-    // watching router parameter changes if params change then we fetch data
+    // watching router parameter changes if params change then we fetch data again
     this.$watch(
       () => this.$route.params,
       () => {
