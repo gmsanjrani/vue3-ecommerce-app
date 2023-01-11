@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import FooterMain from "./FooterMain.vue";
-import NavBar from "./NavBar.vue";
+import FooterMain from "../UI/FooterMain.vue";
+import NavBar from "../NavBar.vue";
 
 export default {
   components: {

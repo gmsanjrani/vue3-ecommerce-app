@@ -61,8 +61,6 @@
           </div>
         </div>
       </div>
-
-      <h1></h1>
       <!-- marquee container -->
       <div class="maylike-products-wrapper sm:mb-[-3rem] lg:mb-0">
         <h2>You may also like</h2>
@@ -77,10 +75,10 @@
 </template>
 
 <script>
-import LayoutVue from "@/components/LayoutVue.vue";
+import LayoutVue from "@/components/layout/LayoutVue.vue";
 import ProductLine from "@/components/ProductLine";
-import axios from "axios";
 import LoadingPage from "@/pages/LoadingPage";
+import client from "@/lib/client";
 
 
 export default {
@@ -131,11 +129,7 @@ export default {
         confirmButtonText: "YES",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$swal(
-            "Deleted!",
-            `${this.product.title} has been deleted.`,
-            "success"
-          );
+          this.$swal("Deleted!",`${this.product.title} has been deleted.`,"success");
           this.$store.commit("deleteProduct", this.product.id);
           this.$router.push("/products");
         }
@@ -170,22 +164,16 @@ export default {
       this.product.category = val.value[2];
 
       // Update data on server
-      fetch(`https://dummyjson.com/products/${this.product.id}`, {
+      client(`products/${this.product.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+        data: {
           title: val.value[0],
           price: val.value[1],
           category: val.value[2],
-        }),
-      }).then(res => {
-        if (res) {
-          this.$swal(
-            "Updated!",
-            `${this.product.title} has been Updated.`,
-            "success"
-          );
         }
+      }).then(res => {
+        console.log(res)
+        if (res) this.$swal("Updated!",`${this.product.title} has been Updated.`,"success");
       })
     }, // End Update Function
 
@@ -193,26 +181,18 @@ export default {
 
     // function for fetch  product data on every route
     fetchProductData() {
-      axios
-        .get(`https://dummyjson.com/products/${this.$route.params.id}`)
-        .then((res) => {
+      client
+        .get(`products/${this.$route.params.id}`).then((res) => {
           if (res) {
             this.product = res.data;
             this.itemData.title = this.product.title;
             this.itemData.price = this.product.price;
             this.itemData.id = this.product.id;
             window.scrollTo(0, 0);
-            axios
-              .get(
-                `https://dummyjson.com/products/category/${this.product.category}`
-              )
-              .then((res) => {
-                if (res) this.categories = res.data.products;
-              });
+            client.get(`products/category/${this.product.category}`).then((res) => {
+                if (res) this.categories = res.data.products;});
             this.loading = true;
-            setTimeout(() => {
-              this.loading = false;
-            }, 1150);
+            setTimeout(() => {this.loading = false;}, 1150);
           }
         });
     },
@@ -221,9 +201,7 @@ export default {
     // watching router parameter changes if params change then we fetch data again
     this.$watch(
       () => this.$route.params,
-      () => {
-        this.fetchProductData();
-      },
+      () => this.fetchProductData(),
       { immediate: true }
     );
   },

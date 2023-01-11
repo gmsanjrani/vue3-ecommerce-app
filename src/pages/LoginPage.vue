@@ -1,5 +1,6 @@
 <template>
-  <div class="login__container">
+  <LoadingPage v-if="loading" />
+  <div class="login__container" v-else>
     <div class="login__hint">
       Hint: <br />
       <p>
@@ -13,78 +14,88 @@
     </div>
     <div id="login__content">
       <h1 class="text-3xl font-semibold">Welcome!</h1>
-      <form action="" method="get">
-        <div class="login__input" ref="username">
-          <label for="name">username</label>
-          <input @focus="onFocusUsername" @blur="onBlurUsername" type="text" ref="usernameInput"
-            v-model="formData.username" />
-        </div>
-        <div class="login__input" ref="password">
-          <label for="password">password</label>
-          <input @focus="onFocusPassword" @blur="onBlurPassword" type="password" ref="passwordInput"
-            v-model="formData.password" />
-        </div>
-      </form>
+      <v-form class="grid gap-6">
+        <v-text-field
+          v-model.lazy="formData.username"
+          :rules="[rules.required, rules.min]"
+          label="username"
+          counter="10"
+          type="text"
+          variant="underlined"
+        ></v-text-field>
+        <v-text-field
+          v-model.lazy="formData.password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="[rules.required, rules.min]"
+          :type="showPassword ? 'text' : 'password'"
+          label="password"
+          @click:append="showPassword = !showPassword"
+          counter="10"
+          variant="underlined"
+        ></v-text-field>
+        <v-btn
+          type="submit"
+          @click.prevent="submitLogin"
+          color="red"
+          class="rounded-md"
+          >Login</v-btn
+        >
+      </v-form>
       <!-- login function -->
-      <button @click="submitLogin" id="login__btn">Login</button>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import LoadingPage from "./LoadingPage.vue";
+import client from "@/lib/client";
 export default {
   name: "LoginPage",
+  components: {
+    LoadingPage
+  },
   data() {
     return {
-      usernameInput: false,
-      passwordInput: false,
+      loading:true,
+      showPassword: false,
       formData: {
         username: null,
         password: "",
       },
+      // validations
+      rules: {
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 7 || "Min 7 characters",
+      },
     };
   },
   methods: {
-    onFocusUsername() {
-      if (this.$refs.usernameInput.focus)
-        this.$refs.username.classList.add("focus");
-    },
-    onFocusPassword() {
-      if (this.$refs.passwordInput.focus)
-        this.$refs.password.classList.add("focus");
-    },
-    onBlurUsername() {
-      if (!this.formData.username)
-        this.$refs.username.classList.remove("focus");
-    },
-    onBlurPassword() {
-      if (!this.formData.password)
-        this.$refs.password.classList.remove("focus");
-    },
-
     // Login Functionality store user data into local storage
-
-    async submitLogin() {
+    submitLogin() {
       try {
-        const response = await axios({
+        client({
           method: "POST",
-          url: "https://dummyjson.com/auth/login",
-          headers: { "Content-Type": "application/json" },
+          url: "auth/login",
           data: {
             username: this.formData.username.trim(),
             password: this.formData.password.trim(),
           },
+        }).then((response) => {
+          const user = response.data;
+          localStorage.setItem("userData", JSON.stringify(user));
+          this.$store.commit("setLogin", true)
+          this.$router.push("/");
         });
-        const user = await response.data;
-        localStorage.setItem("userData", JSON.stringify(user));
-        this.$router.push("/");
       } catch (e) {
         this.$swal("Error!", `Invalid Credentials.`, "success");
         console.log(e);
       }
     },
   },
+
+  mounted() {
+    setTimeout(() => { this.loading = false }, 1500);
+  }
 };
 </script>
 
@@ -126,7 +137,7 @@ export default {
     /*----------  login input bar section  ----------*/
 
     .login__input {
-      width: 350px;
+      width: 80%;
       height: 60px;
       border-radius: 25px;
       margin: 30px 0;
@@ -175,7 +186,7 @@ export default {
       opacity: 1;
     }
 
-    .focus>label {
+    .focus > label {
       top: 2px;
       font-size: 12px;
     }
@@ -235,7 +246,7 @@ export default {
         height: 45px;
       }
 
-      .focus>label {
+      .focus > label {
         top: -2px;
         font-size: 10px;
       }

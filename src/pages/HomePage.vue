@@ -12,7 +12,7 @@
     <!-- products list -->
     <div class="flex flex-wrap justify-center gap-10 mt-8 mb-20">
       <ProductItem
-        v-for="product in $store.state.topRatedProducts"
+        v-for="product in $store.state.products.topRatedProducts"
         :key="product.id"
         :product="product"
       />
@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import LayoutVue from "@/components/LayoutVue";
-import HeroBanner from "@/components/HeroBanner.vue";
-import FooterBanner from "@/components/FooterBanner.vue";
+import LayoutVue from "@/components/layout/LayoutVue";
+import HeroBanner from "@/components/UI/HeroBanner.vue";
+import FooterBanner from "@/components/UI/FooterBanner.vue";
 import LoadingPage from "./LoadingPage.vue";
 import ProductItem from "@/components/ProductItem";
 export default {
@@ -37,9 +37,6 @@ export default {
     };
   },
   mounted() {
-    // check if user is log in or not
-    if (!JSON.parse(localStorage.getItem("userData"))) this.$router.push("/login");
-    else this.$store.dispatch("getCart");
     setTimeout(() => {this.loading = false;}, 1500);
   },
   components: {

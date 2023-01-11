@@ -68,8 +68,8 @@ bg-my-gray-lit rounded-full
      text-my-white font-medium cursor-pointer transition hover:scale-110 duration-300
   }
   .pagi__btn{
-    @apply h-8 w-8 sm:w-10 sm:h-10 md:h-12 md:w-12 md:text-lg border-2 text-my-red border-my-red text-sm cursor-pointer font-medium
-     hover:bg-my-red hover:text-my-white transition rounded-xl
+    @apply h-8 w-8 sm:w-10 sm:h-10 md:h-12 md:w-12 md:text-lg text-my-red border-my-red text-sm cursor-pointer font-medium
+     hover:bg-my-red hover:text-my-white  rounded-xl
 
   }
   .update__container{

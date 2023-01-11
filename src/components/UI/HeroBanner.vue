@@ -6,7 +6,7 @@
       <h1 class="text-my-white text-6xl mt-3 ml-0 font-semibold lg:text-9xl">
         BEST
       </h1>
-      <img class="hero__image" src="../assets/headphone.webp" alt="no" />
+      <img class="hero__image" :src="bannerImage" alt="no" />
 
       <div>
         <button class="mt-20 px-5 py-2 bg-my-red text-my-white font-medium text-lg rounded-2xl lg:mt-8">
@@ -23,6 +23,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      bannerImage: require('@/assets/images/headphone.webp')
+    }
+  }
+};
 </script>
 
