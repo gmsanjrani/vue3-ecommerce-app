@@ -64,7 +64,7 @@ export default {
   computed: {
     ...mapState({
       cart: state => state.cart.cartData,
-      login: state => state.cart.login
+      login: state => state.cart.toggleLogin
     })
   },
   methods: {
@@ -88,7 +88,10 @@ export default {
       const productArray = [];
       // filtering product id and Quantity
       this.cart.products.map((p) => {
-        const productData = { id: p.id, quantity: p.quantity, };
+        const productData = {
+          id: p.id,
+          quantity: p.quantity,
+        };
         productArray.push(productData);
       });
       // send data to the server
@@ -98,8 +101,7 @@ export default {
           userId: user.id,
           products: productArray
         }
-      })
-        .then((res) => {
+      }).then((res) => {
           console.log(res)
           if (res.status == 200) {
             this.$swal("Congratulations!", `Congratulations ${user.username} your order placed Successfully.`, "success");

@@ -1,9 +1,9 @@
 <template>
+  <!-- toggle cart open/close -->
   <ShoppingCart v-if="toggleCart" />
   <header class=" ">
     <nav class="nav__logo">
       <!-- route to Home Page -->
-
       <router-link to="/">
         <div class="w-28 md:w-40 lg:w-52 mb-3 cursor-pointer">
           <img :src="logo" class="w-full" alt="No Image" />
@@ -17,7 +17,7 @@
         <i @click="searchProducts(search)" class="fas fa-search cursor-pointer rounded-2xl p-1"></i>
       </div>
       <div class="flex gap-4">
-        <!-- routing for home/products page -->
+        <!-- routing for home & products page -->
         <router-link to="/"
           class="text-xs md:text-sm underline underline-offset-4 decoration-2 text-my-red cursor-pointer">
           HOME
@@ -26,9 +26,11 @@
         <router-link to="/products" class="nav__products">PRODUCTS</router-link>
       </div>
 
-      <!-- Avatar image and menu dropdown -->
+      <!-- User Avatar image and menu dropdown -->
       <div class="flex items-center gap-4" >
+        <!-- if user not login -->
         <v-btn class=" bg-my-red text-my-white" to="/login" variant="outlined" v-if="!login"> login </v-btn>
+        <!-- if user login -->
         <v-menu min-width="200px" rounded v-else>
           <template v-slot:activator="{ props }">
             <v-btn icon v-bind="props">
@@ -46,11 +48,12 @@
                 <h3>{{ user.username }}</h3>
                 <p class="text-caption mt-1">email</p>
                 <v-divider class="my-3"></v-divider>
-                <v-btn rounded variant="text" @click="logout"> Logout </v-btn>
+                <v-btn rounded variant="text" @click="logoutUser"> Logout </v-btn>
               </div>
             </v-card-text>
           </v-card>
         </v-menu>
+
         <button type="button">
           <!-- calling vuex toggle cart function -->
           <i class="fas fa-cart-plus text-lg lg:text-2xl cursor-pointer relative" @click="$store.commit('showCart')">
@@ -80,12 +83,9 @@ export default {
     };
   },
   methods: {
-    // toggle logout button
-    show() {
-      this.logoutBtn = !this.logoutBtn;
-    },
+  
     // logout function
-    logout() {
+    logoutUser() {
       localStorage.removeItem("userData");
       this.$router.push("/login");
       this.$store.commit("setLogin", false)
@@ -101,7 +101,7 @@ export default {
   computed: {
     ...mapState({
       toggleCart: (state) => state.cart.cart,
-      login: (state) => state.cart.login,
+      login: (state) => state.cart.toggleLogin,
       cartData: (state) => state.cart.cartData,
       tempPages: (state) => state.products.tempPages,
     }),

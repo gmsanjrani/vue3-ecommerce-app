@@ -3,7 +3,7 @@ const toast = useToast();
 export default {
   state: {
     cart: false,
-    login:false,
+    toggleLogin:false,
     cartData: null,
   },
   mutations: {
@@ -11,18 +11,13 @@ export default {
     showCart(state) {
       state.cart = !state.cart;
     },
+
+    // set toggle login
     setLogin(state, newLogin) {
-      state.login = newLogin
+      state.toggleLogin = newLogin
     },
-    // function fot setting cart items
-    setCart(state, newCart) {
-      state.cartData = newCart;
-    },
-    // set logged in user Data
-    setUserData(state, newUser) {
-      state.userData = newUser;
-    },
-    // set logged in user Data
+  
+    // set cart data 
     setCartData(state, newCart) {
       state.cartData = newCart;
     },
@@ -38,8 +33,8 @@ export default {
 
     // function add an item to cart
     addToCart(state, data) {
-      let x = state.cartData.products.some((p) => p.id == data.id);
-      if (x) {
+      let checkItem = state.cartData.products.some((p) => p.id == data.id);
+      if (checkItem) {
         toast.warning(`${data.title} is already in the Cart !`); //check item is present
       } else if (data.quantity == 0) {
         toast.error("Please Add an Item"); // check quantity we want to add

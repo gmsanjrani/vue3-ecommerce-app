@@ -49,13 +49,15 @@ export default {
       }
     },
 
-    // get&commit top rated products and set pages
+    // get&commit top rated products, categories and set pages
     getTopRatedProducts({ commit }) {
       client.get("products?limit=100").then((response) => {
         if (response.status == 200) {
+          // fetching all categories
           client.get("products/categories").then((response) => {
               commit("setCategories", response.data);
-            });
+          });
+          // setting pages and top rated products
           commit("setPages", Math.floor(response.data.products.length / 10));
           commit("setTempPages",Math.floor(response.data.products.length / 10));
           const topRatedProducts = response.data.products.filter((p) => p.rating > 4.8);

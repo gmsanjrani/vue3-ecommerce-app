@@ -37,11 +37,11 @@
             <h3 class="text-my-blue text-lg font-bold">Quantity:</h3>
             <p class="grid grid-cols-3 border-[1px] gap-4 place-items-center cursor-pointer">
               <!-- decrease product quantity -->
-              <span class="pl-3 py-[6px] text-my-red" @click="minus"><i class="fas fa-minus"></i>
+              <span class="pl-3 py-[6px] text-my-red" @click="decreaseQuantity"><i class="fas fa-minus"></i>
               </span>
               <span class="border-x w-12 text-center py-[6px]">{{itemData.quantity}}</span>
               <!-- increase product quantity -->
-              <span class="pr-3 py-[6px] text-my-green" @click="plus"><i class="fas fa-plus"></i>
+              <span class="pr-3 py-[6px] text-my-green" @click="increaseQuantity"><i class="fas fa-plus"></i>
               </span>
             </p>
           </div>
@@ -92,7 +92,7 @@ export default {
       product: {},
       loading: true,
       categories: [],
-      itemData: {
+      itemData: { // product data to pass when creating
         id: 0,
         title: "",
         price: 0,
@@ -105,14 +105,14 @@ export default {
   },
   methods: {
     // function increase product quantity
-    plus() {
+    increaseQuantity() {
       this.itemData.quantity++;
       this.itemData.total += this.product.price;
     },
 
 
     // function increase product quantity
-    minus() {
+    decreaseQuantity() {
       if (this.itemData.quantity > 0) {
         this.itemData.quantity--;
         this.itemData.total -= this.product.price;
@@ -189,6 +189,8 @@ export default {
             this.itemData.price = this.product.price;
             this.itemData.id = this.product.id;
             window.scrollTo(0, 0);
+
+            // fetch products of same category
             client.get(`products/category/${this.product.category}`).then((res) => {
                 if (res) this.categories = res.data.products;});
             this.loading = true;
@@ -198,7 +200,7 @@ export default {
     },
   },
   created() {
-    // watching router parameter changes if params change then we fetch data again
+    // watching route parameter if params change then we fetch data again
     this.$watch(
       () => this.$route.params,
       () => this.fetchProductData(),

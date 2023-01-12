@@ -22,11 +22,13 @@
           <!-- dispatch veux function filter product by category -->
           <span v-for="category in categories" :key="category" @click="productsCategory(category)"
             class="category__item">{{ category }}</span>
-          <span class="category__item" @click="getAllCategoriesProducts">All</span>
+          <span class="category__item" @click="getAllProductCategories">All</span>
         </div>
         <div class="text-4xl font-extrabold leading-tight text-my-blue mt-8 mb-4 self-center">
-          Pagination & Create Product
+          Pagination
         </div>
+
+        <!-- pagination section -->
         <div class="flex justify-evenly">
           <div class="flex gap-1 sm:gap-2 md:gap-4 mb-12">
             <button v-for="page in pages" @click="getProducts(page)" :key="page"
@@ -82,11 +84,13 @@ export default {
       productsCategory:"productsCategory"
     }),
     // set products and pages to default
-    getAllCategoriesProducts() {
+    getAllProductCategories() {
       this.getProducts();
       this.$store.commit("setPages", this.tempPages)
       // this.$store.state.products.pages = this.$store.state.products.tempPages
     },
+
+
     // function create product
     async createProduct() {
       const valuesArray = await this.$swal({
