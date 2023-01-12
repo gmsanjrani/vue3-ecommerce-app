@@ -7,18 +7,18 @@
         <div class="flex flex-col">
           <!-- product thumbnail image -->
           <div class="justify-self-center bg-my-gray-lit rounded-xl cursor-pointer">
-            <img class="w-full aspect" :src="product.thumbnail" alt="noo" />
+            <img class="w-full aspect" :src="product.thumbnail" alt="noo" ref="thumbnail" />
           </div>
           <!-- products images -->
           <div class="w-full grid justify-self-center grid-cols-4 gap-3 mt-6">
-            <img :src="product.images[0]" alt="no"
-              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit" />
-            <img :src="product.images[1]" alt="no"
-              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit" />
-            <img :src="product.images[2]" alt="no"
-              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit" />
-            <img :src="product.images[3]" alt="no"
-              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit" />
+            <img :src="product.images[0]" alt="no" @click="changeThumbnail(product.images[0])"
+              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit cursor-pointer" />
+            <img :src="product.images[1]" alt="no" @click="changeThumbnail(product.images[1])"
+              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit cursor-pointer" />
+            <img :src="product.images[2]" alt="no" @click="changeThumbnail(product.images[2])"
+              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit cursor-pointer" />
+            <img :src="product.images[3]" alt="no" @click="changeThumbnail(product.images[3])"
+              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit cursor-pointer" />
           </div>
         </div>
 
@@ -119,6 +119,10 @@ export default {
       }
     },
 
+    // change thumbnail on clicking other images
+    changeThumbnail(image) {
+      this.$refs.thumbnail.src = image
+    },
 
     // Function Delete a Product
     async deleteProduct() {
