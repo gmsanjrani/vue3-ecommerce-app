@@ -90,7 +90,7 @@ he can click it to logout
     <img src="/src/assets/docsImages/mobile (11).png" width="400" />
 </p>
 
-### Laptop View
+### Tablet View
 <p float="left">
     <img src="/src/assets/docsImages/mobile (5).png" width="400" />
     <img src="/src/assets/docsImages/mobile (6).png" width="400" />
@@ -100,7 +100,7 @@ he can click it to logout
     <img src="/src/assets/docsImages/mobile (8).png" width="400" />
 </p>
 
-### Desktop View
+### Laptop View
 
 <img src="/src/assets/docsImages/mobile (12).png"  />
 <img src="/src/assets/docsImages/mobile (14).png" />
