@@ -1,37 +1,25 @@
 <template>
-  <router-link :to="{ name: 'product', params: { id: product.id } }">
-    <v-card :loading="loading" class="border-2 elevation-15" min-height="500" max-width="374">
-      <template v-slot:loader="{ isActive }">
-        <v-progress-linear :active="isActive" color="deep-purple" height="4" indeterminate></v-progress-linear>
-      </template>
-
-      <v-img cover height="250" :src="product.thumbnail">
-      <v-chip class=" bg-my-red text-my-white" label>Discount: {{ product.discountPercentage }}%</v-chip>
-      </v-img>
-
-      <v-card-item>
-        <v-card-title>{{ product.title }}</v-card-title>
-
-        <v-card-subtitle>
-          <span class="mr-1">{{ product.category }}</span>
-
-          <v-icon color="error" icon="mdi-fire-circle" size="small"></v-icon>
-        </v-card-subtitle>
-      </v-card-item>
-
-      <v-card-text>
-        <v-row align="center" class="mx-0">
-          <v-rating :model-value="product.rating" color="amber" density="compact" half-increments readonly size="small"></v-rating>
-          <div class="text-grey ms-4">
-            {{ product.rating }} ({{ product.stock }})
-          </div>
-        </v-row>
-        <div class="my-4 text-subtitle-1">
-          $ • {{ product.price }}
-        </div>
-        <div> {{ product.description }} </div>
-      </v-card-text>
-    </v-card>
+  <router-link :to="{ name: 'product', params: { id: product.id } }"
+    class="border-2 border-my-gray-lit rounded-lg p-4 cursor-pointer transition hover:scale-110 duration-300 relative">
+    <span class="absolute bg-my-red text-my-white text-xs p-2 rounded-lg">Discount <span>{{ product.discountPercentage}}%</span></span>
+    <div class="flex flex-col gap-2 space-y-2">
+      <img class="bg-my-gray-lit rounded-2xl thumbnail h-[250px] w-[270px]" :src="product.thumbnail" alt="nothing" />
+      <div class="flex justify-between gap-4 max-w-[250px] px-2">
+        <p class="text-my-blue font-semibold title">{{ product.title }}</p>
+        <p class="font-extrabold">${{ product.price }}</p>
+      </div>
+      <div class="flex justify-between max-w-[250px] px-2">
+        <p class="text-my-blue font-semibold">
+          RATING
+          <span class="font-bold" style="color: black">
+            {{ product.rating }}</span>
+        </p>
+        <p class="font-medium text-my-blue">
+          STOCK
+          <span class="font-bold" style="color: black">{{ product.stock}}</span>
+        </p>
+      </div>
+    </div>
   </router-link>
 </template>
 

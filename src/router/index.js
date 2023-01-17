@@ -27,6 +27,8 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes: routes,
+  linkActiveClass:"active__links",
+  linkExactActiveClass:"active__links",
 });
 
 export default router;

@@ -11,14 +11,14 @@
           </div>
           <!-- products images -->
           <div class="w-full grid justify-self-center grid-cols-4 gap-3 mt-6">
-            <img :src="product.images[0]" alt="no" @mouseover="changeThumbnail(product.images[0])"
+            <img 
+            v-for="i in 4"
+            :key="i"
+            :src="product.images[i]" 
+            alt="no" 
+            @mouseover="changeThumbnail(product.images[i])"
               class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit cursor-pointer" />
-            <img :src="product.images[1]" alt="no" @mouseover="changeThumbnail(product.images[1])"
-              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit cursor-pointer" />
-            <img :src="product.images[2]" alt="no" @mouseover="changeThumbnail(product.images[2])"
-              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit cursor-pointer" />
-            <img :src="product.images[3]" alt="no" @mouseover="changeThumbnail(product.images[3])"
-              class="bg-my-gray-lit rounded-lg aspect-square outline outline-2 outline-my-gray-lit cursor-pointer" />
+         
           </div>
         </div>
 

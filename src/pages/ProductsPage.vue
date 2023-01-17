@@ -20,9 +20,11 @@
         <!-- Categories -->
         <div class="category__container text-center gap-2 px-4 mt-8 md:gap-4 md:px-12 lg:px-20">
           <!-- dispatch veux function filter product by category -->
-          <span v-for="category in categories" :key="category" @click="productsCategory(category)"
+          <span v-for="(category,index) in categories" :key="category"
+           @click="onToggleCategory(category,index)"
+            :class="activeCategory==index? 'active__item': '' "
             class="category__item">{{ category }}</span>
-          <span class="category__item" @click="getAllProductCategories">All</span>
+          <span class="category__item"  @click="getAllProductCategories">All</span>
         </div>
         <div class="text-4xl font-extrabold leading-tight text-my-blue mt-8 mb-4 self-center">
           Pagination
@@ -31,7 +33,10 @@
         <!-- pagination section -->
         <div class="flex justify-evenly">
           <div class="flex gap-1 sm:gap-2 md:gap-4 mb-12">
-            <button v-for="page in pages" @click="getProducts(page)" :key="page"
+            <button v-for="(page,index) in pages"
+             @click="onTogglePage(page,index)"
+             :class="activePage==index? 'active__item': ''"
+              :key="page"
               class="pagi__btn border">
               {{ page }}
             </button>
@@ -67,6 +72,8 @@ export default {
   data() {
     return {
       loading: true,
+      activeCategory:null,
+      activePage:null,
     };
   },
   computed: {
@@ -78,6 +85,24 @@ export default {
     })
   },
   methods: {
+    // toggle classList on active category
+    onToggleCategory(category, index) {
+        if (this.activeCategory === index) {
+          this.activeCategory = null;
+        } else {
+          this.activeCategory = index;
+      }
+        this.productsCategory(category)
+      },
+    // toggle classList on active pagination
+    onTogglePage(page, index) {
+        if (this.activePage === index) {
+          this.activePage = null;
+        } else {
+          this.activePage = index;
+      }
+        this.getProducts(page)
+      },
 
     ...mapActions({
       getProducts: "getProducts",
@@ -119,7 +144,7 @@ export default {
           description: valuesArray.value[1],
           price: valuesArray.value[2],
           brand: valuesArray.value[3],
-        },
+        }, 
       }).then((res) => { if (res.status == 200) this.$swal("Created!", `${valuesArray.value[0]} has been Created.`, "success"); });
     }, // end Create product function
   },

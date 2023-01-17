@@ -19,11 +19,12 @@
       <div class="flex gap-4">
         <!-- routing for home & products page -->
         <router-link to="/"
-          class="text-xs md:text-sm underline underline-offset-4 decoration-2 text-my-red cursor-pointer">
+          class="nav__products md:text-sm"
+          >
           HOME
         </router-link>
 
-        <router-link to="/products" class="nav__products">PRODUCTS</router-link>
+        <router-link ref="products" to="/products" class="nav__products">PRODUCTS</router-link>
       </div>
 
       <!-- User Avatar image and menu dropdown -->
@@ -83,6 +84,10 @@ export default {
     };
   },
   methods: {
+
+    toggleLinks() {
+      this.$refs.home.classList.add("active__links")
+    },
   
     // logout function
     logoutUser() {
