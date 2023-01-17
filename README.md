@@ -60,7 +60,6 @@ yarn serve
 15. Implementation of CRUD on cart items 
 16. Push to `Github` and deploy on `VERCEL`
 
-6
 ## Workflow:
 1. On the start of the application home page appears.
 2. On the home page top rated products will be appeared.
