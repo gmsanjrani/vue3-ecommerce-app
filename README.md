@@ -25,6 +25,15 @@ yarn serve
 10. The system shall allow the user to delete any product
 11. The system shall allow the user to update any product
 
+## Tech Stack
++ Vue cli
++ Vue router
++ Vuex
++ Vuetify
++ TailwindCss
++ SASS
++ VueSweetalert2
++ VueTostification2
 
 ## Project Plan
 
