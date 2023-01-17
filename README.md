@@ -8,6 +8,8 @@ yarn install
 ```
 yarn serve
 ```
+### Deployed Here
+[https://vue3-ecommerce-app.vercel.app/#/](https://vue3-ecommerce-app.vercel.app/#/)
 
 # Ecommerce Store
 ## Project Requirements:
@@ -73,3 +75,11 @@ search bar and all relevant product will be displayed there.
 with them he/she can perform CRUD operations on products.
 13. If user wants to logout he can do it by clicking profile photo and on dropdown appears
 he can click it to logout
+
+## View On Different Screens
+
+### Mobile View
+
+### Laptop View
+### Desktop View
+
