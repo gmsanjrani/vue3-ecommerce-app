@@ -11,7 +11,7 @@
           </h2>
           <p class="text-my-gray text-sm">Filter Products By Your Choice</p>
         </div>
-        <button @click="createProduct" class="buy__now h-12 rounded-lg text-sm">
+        <button v-if="login" @click="createProduct" class="buy__now h-12 rounded-lg text-sm">
           Create Product
         </button>
       </div>
@@ -77,6 +77,7 @@ export default {
   },
   computed: {
     ...mapState({
+      login: (state) => state.cart.toggleLogin,
       categories: state => state.products.categories,
       pages: state => state.products.pages,
       tempPages: state => state.products.tempPages,

@@ -50,14 +50,14 @@
             <button @click="$store.commit('addToCart', itemData)" class="add__to__cart border border-my-red">
               Add to Cart
             </button>
-            <button class="buy__now">Buy Now</button>
+            <button class="buy__now" @click="$store.commit('showCart')">Buy Now</button>
           </div>
           <div class="mt-4 space-x-6">
             <!-- calling vuex function for adding item to cart and pass product data -->
-            <button @click="updateProduct" class="add__to__cart border border-my-red">
+            <button v-if="login" @click="updateProduct" class="add__to__cart border border-my-red">
               Edit Product
             </button>
-            <button @click="deleteProduct" class="buy__now">Delete it</button>
+            <button v-if="login" @click="deleteProduct" class="buy__now">Delete it</button>
           </div>
         </div>
       </div>
@@ -79,6 +79,7 @@ import LayoutVue from "@/components/layout/LayoutVue.vue";
 import ProductLine from "@/components/ProductLine";
 import LoadingPage from "@/pages/LoadingPage";
 import client from "@/lib/client";
+import { mapState } from 'vuex';
 
 
 export default {
@@ -102,6 +103,11 @@ export default {
         discountedPrice: 123,
       },
     };
+  },
+  computed: {
+    ...mapState({
+      login: (state) => state.cart.toggleLogin,
+    })
   },
   methods: {
     // function increase product quantity
