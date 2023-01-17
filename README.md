@@ -79,7 +79,14 @@ he can click it to logout
 ## View On Different Screens
 
 ### Mobile View
-
+<p float="left">
+  <img src="/src/assets/docsImages/mobile (1).png" width="100" />
+  <img src="/src/assets/docsImages/mobile (2).png" width="100" /> 
+</p>
+<p float="right">
+  <img src="/src/assets/docsImages/mobile (3).png" width="100" /> 
+  <img src="/src/assets/docsImages/mobile (4).png" width="100" /> 
+</p>
 ### Laptop View
 ### Desktop View
 
