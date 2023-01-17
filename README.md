@@ -80,13 +80,30 @@ he can click it to logout
 
 ### Mobile View
 <p float="left">
-  <img src="/src/assets/docsImages/mobile (1).png" width="100" />
-  <img src="/src/assets/docsImages/mobile (2).png" width="100" /> 
+  <img src="/src/assets/docsImages/mobile (1).png" width="150" />
+  <img src="/src/assets/docsImages/mobile (2).png" width="150" /> 
+  <img src="/src/assets/docsImages/mobile (3).png" width="150" /> 
+  <img src="/src/assets/docsImages/mobile (4).png" width="150" />
 </p>
 <p float="right">
-  <img src="/src/assets/docsImages/mobile (3).png" width="100" /> 
-  <img src="/src/assets/docsImages/mobile (4).png" width="100" /> 
+    <img src="/src/assets/docsImages/mobile (10).png" width="150" />
+    <img src="/src/assets/docsImages/mobile (11).png" width="150" />
 </p>
+
 ### Laptop View
+<p float="left">
+    <img src="/src/assets/docsImages/mobile (5).png" width="350" />
+    <img src="/src/assets/docsImages/mobile (6).png" width="350" />
+</p>
+<p float="left">
+    <img src="/src/assets/docsImages/mobile (7).png" width="350" />
+    <img src="/src/assets/docsImages/mobile (8).png" width="350" />
+</p>
+
 ### Desktop View
+
+<img src="/src/assets/docsImages/mobile (12).png"  />
+<img src="/src/assets/docsImages/mobile (14).png" />
+<img src="/src/assets/docsImages/mobile (13).png" />
+
 
