@@ -104,7 +104,7 @@ export default {
       }).then((res) => {
           console.log(res)
           if (res.status == 200) {
-            this.$swal("Congratulations!", `Congratulations ${user.username} your order placed Successfully.`, "success");
+            this.$swal("Congratulations!", `Congratulations ${user.username} your order placed Successfully.`, "success",);
             this.cartToggle()
           }
         })

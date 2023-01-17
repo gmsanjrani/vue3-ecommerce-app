@@ -47,14 +47,14 @@
           </div>
           <div class="mt-10 space-x-6">
             <!-- calling vuex function for adding item to cart and pass product data -->
-            <button @click="$store.commit('addToCart', itemData)" class="add__to__cart">
+            <button @click="$store.commit('addToCart', itemData)" class="add__to__cart border border-my-red">
               Add to Cart
             </button>
             <button class="buy__now">Buy Now</button>
           </div>
           <div class="mt-4 space-x-6">
             <!-- calling vuex function for adding item to cart and pass product data -->
-            <button @click="updateProduct" class="add__to__cart">
+            <button @click="updateProduct" class="add__to__cart border border-my-red">
               Edit Product
             </button>
             <button @click="deleteProduct" class="buy__now">Delete it</button>
@@ -131,6 +131,7 @@ export default {
         showCancelButton: true,
         cancelButtonText: "NO",
         confirmButtonText: "YES",
+        confirmButtonColor:"#f02d34",
       }).then((result) => {
         if (result.isConfirmed) {
           this.$swal("Deleted!",`${this.product.title} has been deleted.`,"success");
@@ -154,6 +155,7 @@ export default {
         showCancelButton: true,
         cancelButtonText: "Cancel",
         confirmButtonText: "Update",
+        confirmButtonColor:"#f02d34",
         preConfirm: () => {
           return [
             document.getElementById("title").value,

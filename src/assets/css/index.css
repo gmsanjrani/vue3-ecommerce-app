@@ -36,7 +36,7 @@
     hover:text-my-white duration-100;
   }
   .input__container{
-    @apply hidden md:flex place-items-center  flex-1 w-full max-w-xs lg:max-w-md h-8 md:h-10 pr-3
+    @apply  flex place-items-center w-full max-w-xs lg:max-w-md h-8 md:h-10 pr-3
 bg-my-gray-lit rounded-full
   }
   .nav__input {
@@ -60,7 +60,7 @@ bg-my-gray-lit rounded-full
      cursor-pointer p-3  hover:bg-my-red transition duration-200 hover:text-my-white sm:text-sm 
   }
   .add__to__cart{
-    @apply border-my-red border py-1 px-2 sm:px-7 sm:py-2 text-my-red 
+    @apply  py-1 px-2 sm:px-7 sm:py-2 text-my-red 
     cursor-pointer transition hover:scale-110 duration-300
   }
   .buy__now{

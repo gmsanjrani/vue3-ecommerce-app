@@ -55,7 +55,9 @@ export default {
         if (response.status == 200) {
           // fetching all categories
           client.get("products/categories").then((response) => {
-              commit("setCategories", response.data);
+            const categories = response.data
+            categories.push("All")
+              commit("setCategories", categories);
           });
           // setting pages and top rated products
           commit("setPages", Math.floor(response.data.products.length / 10));
@@ -79,14 +81,21 @@ export default {
 
     // filter products by category
     productsCategory({ commit }, val) {
-      try {
+      if (val == "All") {
+        client.get(`products?limit=10`).then(response => {
+          if (response) {
+            commit("setProducts", response.data.products);
+            commit("setPages", 10);
+          }
+          })
+      } else {
         client.get(`products/category/${val.trim()}`).then((response) => {
-            commit("setPages", Math.floor(response.data.products.length / 10));
+          commit("setPages", Math.floor(response.data.products.length / 10));
             commit("setProducts", response.data.products);
           });
-      } catch (error) {
-        toast.error(error);
       }
+        
+
     },
   },
 };

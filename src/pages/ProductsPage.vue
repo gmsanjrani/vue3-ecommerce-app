@@ -6,12 +6,12 @@
     <div class="main-container flex flex-col items-center">
       <div class="flex items-center justify-evenly gap-5 md:gap-20 mt-14">
         <div>
-          <h2 class="text-3xl md:text-4xl font-extrabold leading-tight text-my-blue">
+          <h2 class="text-2xl md:text-4xl font-extrabold leading-tight text-my-blue">
             Categories
           </h2>
-          <p class="text-my-gray">Filter Products By Your Choice</p>
+          <p class="text-my-gray text-sm">Filter Products By Your Choice</p>
         </div>
-        <button @click="createProduct" class="buy__now h-12 rounded-lg">
+        <button @click="createProduct" class="buy__now h-12 rounded-lg text-sm">
           Create Product
         </button>
       </div>
@@ -24,7 +24,6 @@
            @click="onToggleCategory(category,index)"
             :class="activeCategory==index? 'active__item': '' "
             class="category__item">{{ category }}</span>
-          <span class="category__item"  @click="getAllProductCategories">All</span>
         </div>
         <div class="text-4xl font-extrabold leading-tight text-my-blue mt-8 mb-4 self-center">
           Pagination
@@ -126,6 +125,7 @@ export default {
           `<input id="price" type="text" class="swal2-input" value="" placeholder="Enter Price">` +
           `<input id="brand" type="text" class="swal2-input" value="" placeholder="Enter brand">`,
         focusConfirm: false, showCancelButton: true, cancelButtonText: "Cancel", confirmButtonText: "Create",
+        confirmButtonColor:"#f02d34",
         preConfirm: () => {
           return [
             document.getElementById("title").value,

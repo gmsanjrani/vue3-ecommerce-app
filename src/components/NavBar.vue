@@ -9,7 +9,7 @@
           <img :src="logo" class="w-full" alt="No Image" />
         </div>
       </router-link>
-      <div class="input__container">
+      <div class="input__container hidden md:flex">
         <label for="search"></label>
         <input class="nav__input" type="search" name="search" id="search" placeholder="Search Products"
           v-model="search" />
@@ -34,8 +34,8 @@
         <!-- if user login -->
         <v-menu min-width="200px" rounded v-else>
           <template v-slot:activator="{ props }">
-            <v-btn icon v-bind="props">
-              <v-avatar size="40" :image="user.image">
+            <v-btn size="35" icon v-bind="props">
+              <v-avatar size="35" :image="user.image">
                 <span class="text-h5">user</span>
               </v-avatar>
             </v-btn>
